@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="vue.js"></script>
+    <title>Login-Test</title>
+</head>
+<body>
+    <div id="main">
+        share_title: <input type="text" v-model="share_title">
+        <br>
+        share_desc: <input type="text" v-model="share_desc">
+        <br>
+        share_link: <input type="text" v-model="share_link">
+        <br>
+        share_cover: <input type="text" v-model='share_cover'>
+        <br>
+        <button @click="getShare">点击分享</button>
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous"></script>
+<script src="https://res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
+<script>
+    /**
+     * 获取微信js-sdk参数
+     * @param {String} url 当前页面的url
+     * @return {Object} 获取到的参数
+     * 
+    */
+    function getShareParam(url) {
+      return axios({
+        url: "/api/wechat/share",
+        data: { url },
+        method:"post"
+      })
+    }
+    const mv = new Vue({
+        el: "#main",
+        data: {
+            share_title: "分享标题",  
+            share_desc: "描述内容",  
+            share_link: window.location.href,
+            share_cover: "缩略图",
+        },
+        mounted() {
+            
+        },
+        methods: {
+            getShare() {
+                getShareParam(this.share_link).then(res => {
+                    console.log("获取微信分享参数响应内容", res)
+                    res = res.data.data
+                    // 微信js-sdk配置参数
+                    var config = {
+                        debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印
+                        appId: 'wx315f707b0fd0fb59', // 必填，公众号的唯一标识
+                        timestamp: res.timestamp, // 必填，生成签名的时间戳
+                        nonceStr: res.nonceStr, // 必填，生成签名的随机串
+                        signature: res.signature, // 必填，签名
+                        jsApiList: ['wx-open-launch-app', 'wx-open-launch-weapp', 'updateTimelineShareData', 'updateAppMessageShareData',"openLocation"], // 必填，需要使用的JS接口列表
+                        openTagList: ['wx-open-launch-app', 'wx-open-launch-weapp'] // 可选，需要使用的开放标签列表，例如['wx-open-launch-app']
+                    };
+                    wx.config(config)
+                    wx.ready(() => {
+                        // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中
+                        console.log();
+                        //分享到朋友圈
+                        wx.updateTimelineShareData({
+                            title: this.share_title, // 分享标题
+                            link: this.share_link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                            imgUrl: this.share_cover, // 分享图标
+                            success: function() {
+                                // 设置成功
+                                console.log('updateTimelineShareData:设置成功');
+                            }
+                        });
+                        //分享给好友
+                        wx.updateAppMessageShareData({
+                            title: this.share_title, // 分享标题
+                            desc: this.share_desc, // 分享描述
+                            link: this.share_link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                            imgUrl: this.share_cover, // 分享图标
+                            success: function() {
+                                // 设置成功
+                            }
+                        });
+
+                        console.log('用于分享的参数', {
+                            title: this.share_title, // 分享标题
+                            desc: this.share_desc, // 分享描述
+                            link: this.share_link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                            imgUrl: this.share_cover // 分享图标
+                        });
+                    });
+                    // 通过error接口处理失败验证
+                    wx.error(function(res) {
+                        console.log('config信息验证失败', res);
+                        // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名
+                    });
+                    
+                });
+
+            }
+        }
+    })
+</script>
+<style>
+    #main {
+        text-align: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        color: #585858;
+        /* font-size: 20px; */
+    }
+
+    #main>p {
+        font-size: 14px;
+    }
+</style>
+</html>

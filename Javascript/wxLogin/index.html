@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="vue.js"></script>
+    <title>Login-Test</title>
+</head>
+<body>
+    <div id="main">
+        appid: <input type="text" v-model="appid">
+        <br>
+        response_type: <input type="text" v-model="response_type">
+        <br>
+        scope: <input type="text" v-model="scope">
+        <br>
+        redirect_uri: <input type="text" v-model='redirect_uri'>
+        <br>
+        state: <input type="text" v-model="state">
+        <h4>获取到的授权信息:</h4>
+        <p>
+            {{code}}
+        </p>
+        <button @click="gotoAuth">跳转获取code</button>
+    </div>
+</body>
+<script>
+    const mv = new Vue({
+        el: "#main",
+        data: {
+            code: "未获取授权信息，请点击按钮获取！",
+            appid:"wx315f707b0fd0fb59",
+            scope:"snsapi_base",
+            redirect_uri:window.location.origin + "/api/wechat/login",
+            state:"STATE",
+            response_type:"code",
+
+        },
+        mounted() {
+            let search = window.location.search
+            if (search) {
+                this.code = search
+            }
+        },
+        methods: {
+            gotoAuth() {
+              let auth = `https://www.kongquechao.com/api/api/getCode?host=${encodeURIComponent(
+                this.redirect_uri
+              )}`;
+              window.open(auth, "_self");
+
+
+                // let url = 'https://open.weixin.qq.com/connect/oauth2/authorize' +
+                //     '?appid=' +
+                //     this.appid +
+                //     '&redirect_uri=' +
+                //     encodeURIComponent(this.redirect_uri) +
+                //     '&response_type=' +this.response_type+
+                //     '&scope=' +this.scope+
+                //     '&state='+this.state +
+                //     '#wechat_redirect'
+
+                // window.location.href = url
+            }
+        }
+    })
+</script>
+<style>
+    #main {
+        text-align: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        color: #585858;
+        /* font-size: 20px; */
+    }
+
+    #main>p {
+        font-size: 14px;
+    }
+</style>
+</html>
