@@ -1,0 +1,31 @@
+/* 不错的样式 */
+
+/* 手写左右箭头 */
+.task_arrow_left{
+  position: relative;
+  padding-right: 5rpx;
+}
+.task_arrow_left:after{
+    content: " ";
+    display: inline-block;
+    height: 14rpx;
+    width: 14rpx;
+    border-width:0 0 4rpx 4rpx;
+    border-color: #F65529;
+    border-style: solid;
+    transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+}
+.task_arrow_right{
+  position: relative;
+  padding-left: 5rpx;
+}
+.task_arrow_right:after{
+    content: " ";
+    display: inline-block;
+    height: 14rpx;
+    width: 14rpx;
+    border-width: 4rpx 4rpx 0 0;
+    border-color: #F65529;
+    border-style: solid;
+    transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+}
