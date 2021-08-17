@@ -29,3 +29,16 @@
     border-style: solid;
     transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
 }
+
+
+/* 导航栏 右侧箭头 */
+.navigator-box{opacity:0;position:relative;background-color:#FFFFFF;line-height:1.41176471;font-size:14px;transform:translateY(-50%);transition:.3s}
+.navigator-box-show{opacity:1;transform:translateY(0)}
+.navigator{padding:16px 0 16px 16px;position:relative;display:flex;align-items:center;font-size: 14px;
+  font-size: 14px;
+  font-weight: bold;}
+.navigator::after{content:" ";position:absolute;left:30rpx;bottom:0;right:0;height:2rpx;border-bottom:2rpx solid #efefef;color:#D8D8D8}
+.navigator:first-child:before{display:none}
+.navigator-text{flex:1}
+.navigator-arrow{padding-right:26rpx;position:relative}
+.navigator-arrow:after{content:" ";display:inline-block;height:18rpx;width:18rpx;border-width:2rpx 2rpx 0 0;border-color:#929292;border-style:solid;transform:matrix(0.71,0.71,-0.71,0.71,0,0);position:absolute;top:50%;margin-top:-8rpx;right:28rpx}
