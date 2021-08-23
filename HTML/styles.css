@@ -42,3 +42,23 @@
 .navigator-text{flex:1}
 .navigator-arrow{padding-right:26rpx;position:relative}
 .navigator-arrow:after{content:" ";display:inline-block;height:18rpx;width:18rpx;border-width:2rpx 2rpx 0 0;border-color:#929292;border-style:solid;transform:matrix(0.71,0.71,-0.71,0.71,0,0);position:absolute;top:50%;margin-top:-8rpx;right:28rpx}
+
+/* 基于SVG的图标 */
+.weui-navigation-bar__btn {
+    display: inline-block;
+    vertical-align: middle;
+    background-repeat: no-repeat;
+}
+
+.weui-navigation-bar__btn_goback {
+    font-size: 12px;
+    width: 1em;
+    height: 2em;
+    mask: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='24' viewBox='0 0 12 24'%3E  %3Cpath fill-opacity='.9' fill-rule='evenodd' d='M10 19.438L8.955 20.5l-7.666-7.79a1.02 1.02 0 0 1 0-1.42L8.955 3.5 10 4.563 2.682 12 10 19.438z'/%3E%3C/svg%3E") no-repeat 50% 50%;
+    mask-size: cover;
+    background-color: currentColor;
+
+    &:active {
+        opacity: .5;
+    }
+}

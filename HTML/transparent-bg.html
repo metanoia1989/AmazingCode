@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>透明背景</title>
+    <style>
+        .bg {
+            background-color:rgba(0,0,0,0);
+            position: absolute; 
+            top: 0;
+            color: red;
+        }
+        .box {
+            width: 200px;
+            height: 500px;
+            outline: dashed 1px greenyellow;
+            background-color: yellow;
+            position: relative;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="bg">
+            测试内容
+        </div>
+        <div style="background-color: #377af4; height: 100px; padding-top: 0px;margin-top: 10px;">哈哈</div>
+    </div>
+</body>
+</html>
