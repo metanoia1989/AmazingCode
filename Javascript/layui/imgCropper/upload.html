@@ -1,0 +1,10 @@
+<div class="layui-form-item">
+    <label class="layui-form-label">封面</label>
+    <div class="layui-input-block layuimini-upload">
+        <input name="cover" lay-verify="required" class="layui-input layui-col-xs6" lay-reqtext="请上传封面" placeholder="请上传封面" value="{$row.cover|default=''}">
+        <div class="layuimini-upload-btn">
+            <span class="layui-btn layui-btn-primary">尺寸要求：400*400像素，大小不超过400kb</span>
+            <span><a class="layui-btn" data-crop-upload="cover" data-upload-size="400"  data-upload-dir="{$cover}" data-upload-bucket="Bucket7" data-upload-number="one" data-upload-exts="png|jpg|ico|jpeg"><i class="fa fa-upload"></i> 上传</a></span>
+        </div>
+    </div>
+</div>
