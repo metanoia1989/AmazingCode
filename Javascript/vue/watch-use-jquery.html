@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue 集成 jQuery 插件</title>
+</head>
+<body>
+    <div>
+        在 watch 里用 jquery 插件给页面元素加特效，
+        get_index_banner 就是 banner图的数据，
+        这个变量被赋值后，就会触发 watch，
+        然后就给轮播图元素上插件效果
+    </div>
+    <script>
+        var vm = new Vue({
+            el:'.autoCenter',
+            data:{
+                get_index_banenr: [], // 顶部banner图
+            },
+            methods:{
+            },
+            watch: {
+                get_index_banenr: function () {
+                    this.$nextTick(function () {
+                        var myPi = new Pike(".designer_index_banner_container", {
+                            type: 1, // 轮播的类型(1渐隐)
+                            automatic: true, //是否自动轮播 (默认false)
+                            autoplay: 4000, //自动轮播毫秒 (默认3000)
+                            hover: true, //鼠标悬停轮播 (默认false)
+                            arrowColor: "yellow", //箭头颜色 (默认绿色)
+                            arrowBackgroundType: 2, //箭头背景类型 (1: 方形, 2:圆形)
+                            arrowBackground: 1, //箭头背景色 (1:白色,2:黑色, 默认:无颜色)
+                            arrowTransparent: 0.2, //箭头背景透明度 (默认: 0.5)
+                            spotColor: "white",//圆点颜色 (默认: 白色)
+                            spotType: 1, //圆点的形状 (默认: 圆形, 1:圆形, 2.矩形)
+                            spotSelectColor: "#BDBDBD", //圆点选中颜色 (默认绿色)
+                            spotTransparent: 1, //圆点透明度 (默认0.8)
+                            mousewheel: true, //是否开启鼠标滚动轮播(默认false)
+                            drag: false, //是否开启鼠标拖动 (默认为: true, 如不需要拖动设置false即可)
+                            loop: true, //是否循环轮播 (默认为: false)
+                        });
+                    })
+                },
+            },
+        })
+    </script>
+</body>
+</html>
