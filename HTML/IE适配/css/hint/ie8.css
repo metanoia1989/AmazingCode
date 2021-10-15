@@ -1,0 +1,150 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+html, body, .container {
+    height: 100%;
+    background: white;
+    width: 100%; 
+}
+
+/* 顶部提示 */
+.content-box {
+    margin-left: auto;
+    margin-right: auto;
+    width: 1380px;
+    height: 65%;
+    box-sizing: border-box;
+    padding-top: 50px;
+}
+
+.logo {
+    display: block;
+    background: url(../../img/ie8/logo.png) no-repeat;
+    background-size: contain;
+    width: 182px;
+    height: 51px;
+    margin-left: 28px;
+    margin-bottom: 31px;
+}
+
+.hint {
+    outline: dashed black 1px;
+    background-color: #e6ecf6;
+    color: #37476C;
+    padding: 40px;
+    padding-right: 90px;
+}
+.hint-title {
+    font-size: 26px;
+}
+.hint-content {
+    font-size: 24px;
+    padding-left: 50px;
+    margin-top: 25px;
+    line-height: 38px;
+    text-align: justify;
+    box-sizing: border-box;
+}
+.hint-content span {
+    color: #0092fe;
+}
+
+/* 浏览器列表 */
+.suggest-browsers {
+    width: 844px; 
+    margin-left: auto;
+    margin-right: auto;
+}
+.browser {
+    float: left;
+    width: 160px;
+    display: block;
+    margin-right: 68px;
+    margin-top: 42px;
+    margin-bottom: 42px;
+    text-align: center;
+}
+.browser span {
+    color: #666;
+    font-size: 14px;
+}
+.browser.sogou {
+    margin-right: 0;
+}
+.browser .icon {
+    height: 160px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-bottom: 10px;
+}
+.edge .icon {
+    background-image: url(../../img/ie8/edge.png);  
+}
+.chrome .icon {
+    background-image: url(../../img/ie8/chrome.png);  
+}
+.qh360 .icon {
+    background-image: url(../../img/ie8/360.png);  
+}
+.sogou .icon {
+    background-image: url(../../img/ie8/sougou.png);  
+}
+
+
+/* 底部提示 */
+.footer {
+    height: 200px;
+    clear: both;
+    width: 100%;
+    background-color: #151a2d;
+}
+
+.footer-content {
+    background-color: #151a2d;
+    margin-left: auto;
+    margin-right: auto;
+    height: 100%;
+    padding-top: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+    box-sizing: border-box;
+    width: 1380px;
+}
+.footer-content .title {
+    color: #00a7fe;
+    font-size: 22px;
+}
+.footer-content .content {
+    color: #808080;
+    font-size: 20px;
+    line-height: 31px;
+    margin-top: 25px;
+}
+
+
+@media only screen and (max-width: 1440px) { 
+    .content-box, .footer-content
+    {
+        margin-left: auto;
+        margin-right: auto;
+        width: 1000px;
+    }
+}
+@media only screen and (max-width: 1200px) { 
+    .content-box, .footer-content
+    {
+        margin-left: auto;
+        margin-right: auto;
+        width: 900px;
+    }
+}
+@media only screen and (min-height: 900px) { 
+    .content-box {
+        height: 78%;
+    }
+    .browser {
+        margin-top: 75px;
+        margin-bottom: 75px;
+    }
+}

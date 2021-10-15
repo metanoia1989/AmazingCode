@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name=renderer content=webkit />
+    <meta name="referrer" content="no-referrer" />
+    <meta name=force-rendering content=webkit />
+    <meta http-equiv=X-UA-Compatible content="IE=edge,chrome=1" />
+    <meta name="Keywords" content="51sjsj,设计师之家,设计师,设计" />
+    <meta name="Description"
+        content="『设计师之家资源库』是集课程学习、素材下载、交流共享于一体的设计类资源库，致力于打造全球领先的设计师在线学习平台、资源素材中心、创客中心，为广大设计爱好者提供专业的学习资源和精彩的分享平台！" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>设计师之家</title>
+    <link rel="shortcut icon" href="__PUBLIC__/home/img/common_img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="__PUBLIC__/home/css/pagecss/basic.css" />
+    <link rel="stylesheet" href="__PUBLIC__/home/css/hint/ie8.css" />
+    <script src="__PUBLIC__/home/js/baseExtends/commonfunction.js?v=2.5"></script>
+    <block name="header"></block>
+</head>
+
+<body>
+    <div class="container">
+        <div class="content-box">
+            <a href="/" class="logo"></a>
+            <div class="hint">
+                <div class="hint-title">温馨提示</div>
+                <div class="hint-content">
+                    您当前使用的<span>IE浏览器版本</span>过低，网站部分内容无法完整呈现，为了您的更好体验建议将IE浏览器升级至微软最新版的<span>Microsoft
+                        Edge浏览器</span>或使用<span>Google Chrome浏览器</span>。点击下方任意按钮可下载兼容性更好的浏览器。
+                </div>
+            </div>
+
+            <div class="suggest-browsers">
+                <a class="browser edge" target="_blank" href="https://www.microsoft.com/zh-cn/edge#platform">
+                    <div class="icon"></div>
+                    <span>微软Edge浏览器</span>
+                </a>
+                <a class="browser chrome" target="_blank" href="https://www.google.cn/intl/zh-CN/chrome/">
+                    <div class="icon"></div>
+                    <span>谷歌Chrome浏览器</span>
+                </a>
+                <a class="browser qh360" target="_blank" href="http://browser.360.cn/">
+                    <div class="icon"></div>
+                    <span>360浏览器</span>
+                </a>
+                <a class="browser sogou" target="_blank" href="https://ie.sogou.com/">
+                    <div class="icon"></div>
+                    <span>搜狗浏览器</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-content">
+                <div class="title">告知：微软IE浏览器将停用并停止支持</div>
+                <div class="content">
+                    根据微软官方消息，IE浏览器将于 2022 年 6 月 15 日停用并停止支持。 目前使用的相同 Internet Explorer 11 应用和网站可使用 Internet Explorer 模式在
+                    Microsoft Edge 中打开。
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            if(detectIECompatible()) {
+                window.location.href = '/'
+            }
+        })();
+    </script>
+</body>
+
+</html>

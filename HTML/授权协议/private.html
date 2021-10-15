@@ -1,0 +1,54 @@
+﻿
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="Application/msword">
+    <meta http-equiv="Content-Type" content="Application/msword Microsoft Word Document">
+
+    <title>用户使用协议</title>
+
+    <script src="https://hm.baidu.com/hm.js?ec5492d102b5b4fc4e02ed51f134958e"></script>
+    <script src="__PUBLIC__/home/js/jquery.min.js"></script>
+
+</head>
+
+<body>
+    <div id="private_content" style="margin: 0  auto;width: 800px;"></div>
+</body>
+
+<script src="__PUBLIC__/home/js/file/PDFObject.js"></script>
+<script src="__PUBLIC__/home/js/functionJs/show_the_doc.js"></script>
+
+<script>
+
+    //http or https
+    var tmpTag = 'https:' == document.location.protocol ? false : true;
+
+    //absoulute path
+    if (tmpTag) {
+        var host = 'http://' + window.location.host;
+    } else {
+        var host = 'https://' + window.location.host;
+    };
+
+    function GetQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");var r = window.location.search.substr(1).match(reg);if (r != null) return unescape(r[2]); return null;
+    }
+
+    $(function () {
+        read_the_doc.word(host + "/Public/home/js/file/private_"+GetQueryString("content")+".pdf", "#private_content");
+    })    
+
+</script>
+
+</html>
+
+
+
+
+

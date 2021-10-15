@@ -1,0 +1,581 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8" />
+    <meta name=renderer content=webkit />
+    <meta name="referrer" content="no-referrer"/>
+    <meta name=force-rendering content=webkit />
+    <meta http-equiv=X-UA-Compatible content="IE=edge,chrome=1" />
+    <meta name="Keywords" content="51sjsj,设计师之家,设计师,设计" />
+    <meta name="Description" content="『设计师之家资源库』是集课程学习、素材下载、交流共享于一体的设计类资源库，致力于打造全球领先的设计师在线学习平台、资源素材中心、创客中心，为广大设计爱好者提供专业的学习资源和精彩的分享平台！" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>设计师之家</title>
+    <link rel="shortcut icon" href="__PUBLIC__/home/img/common_img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="__PUBLIC__/home/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="__PUBLIC__/home/css/pagecss/basic.css" />
+    <link rel="stylesheet" href="__PUBLIC__/home/css/HeadAndFoot.css" />
+    <link rel="stylesheet" href="__PUBLIC__/home/css/baseExtends/met_pop_layer.css">
+
+    <script src="https://hm.baidu.com/hm.js?ab39cb55a8879a127858a7548e2aee63"></script>
+
+    <script src="__PUBLIC__/home/js/ployfill/base64.js"></script>
+    <script src="__PUBLIC__/home/js/jquery.min.js"></script>
+    <script src="__PUBLIC__/home/js/jquery.cookie.js"></script>
+    <script src="__PUBLIC__/home/js/bootstrap.min.js"></script>
+
+    <script src="__PUBLIC__/home/js/baseExtends/commonfunction.js?v=2.5"></script>
+
+    <script>
+        (function(){
+            // 检测不兼容的IE浏览器
+            if (!detectIECompatible()) {
+                window.location.href = '/ie8_and_blow_not_support'   
+            }
+
+            // 添加样式补丁
+            var ieVersion = detectIEVersion();
+            if (ieVersion !== false) {
+                var ieLink = document.createElement('link');
+                ieLink.setAttribute('rel', 'stylesheet');
+                if (ieVersion == 11) {
+                    ieLink.setAttribute('href', '__PUBLIC__/home/css/hint/ie11.css');
+                } 
+                if (ieVersion == 9 || ieVersion == 10) {
+                    ieLink.setAttribute('href', '__PUBLIC__/home/css/hint/ie9-and-10.css');
+                }
+                if ([9, 10, 11].indexOf(ieVersion) !== -1) {
+                    document.head.appendChild(ieLink);
+
+                    // placeholder 兼容补丁
+                    if (ieVersion == 9) {
+                        var script = document.createElement('script');
+                        script.setAttribute('src', '__PUBLIC__/home/js/ie/jquery.placeholder.js');
+                        document.head.appendChild(script);
+                        $(document).ready(function () {
+                            $('input').placeholder();
+                        });
+                    } 
+
+                    document.addEventListener('DOMContentLoaded', function () {
+                        document.getElementsByTagName('body')[0].className = 'IE' + ieVersion;
+                    });
+
+                }
+            }
+        })();
+        // 全局变量，提供给IE适配使用
+        var IE_VERSION = detectIEVersion();
+    </script>
+
+    <block name="header"></block>
+</head>
+
+<body>
+
+    <div class="wait80Tops"></div>
+
+    <div class="hiddenEverything hiddenEverything_style"></div>
+    <div class="hiddenEverything_forclick"></div>
+
+    <div class="loadingGif"></div>
+
+    <div class="sharedHeadNone" style="display: none;height: 90px;"></div>
+
+    <div class="msgNewTagNone" style="display: none;"></div>
+
+    <div class="sharedHead">
+
+        <div class="welcomeTitle">
+
+            <div class="welcomeMain">
+                <div class="fl">
+                    <span class="welcomeText"></span><span id="welcomeName"></span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="sharedHeadMain">
+
+            <div class="sharedHead_logo">
+                <a href="{:U('/')}" title="">
+                    <div class="sharedHead_logoimg"></div>
+                    <!-- <?php if (in_array(S('.orgNavbar.'.$_SESSION['organizationId'])['organization_id'], [42, 305, 766,773,1207])) { ?>
+                    <div class="sharedHead_logoimg" style="background: url(__PUBLIC__/home/img/newlogo2.png) no-repeat;background-size: 100% 100%;"></div>
+                    <?php }else{ ?>
+                    <div class="sharedHead_logoimg"></div>
+                    <?php } ?> -->
+                </a>
+            </div>
+
+                <!-- unlogin -->
+                <div id="sharedHead_theme">
+
+                    <div class="sharedHead_theme_txt">
+                        <!-- <div class="transverseDiv transverseDiv_1"><a class="transverseDiv_active_highlight" href="{:U('/')}" title="首页">首页</a></div> -->
+
+                        <!-- <div class="transverseDiv transverseDiv_2">
+                            <div class="transverseSonOne"><a class="transverseDiv_active_highlight" href="javascript:void(0)" data-attr="{:U('/list')}" title="精品教程">精品教程</a></div>
+                            <div class="forAlink">
+                                <a class="transverseSon" onclick="designers_secuity_link(this)" data-attr="{:U('/list')}" title="视频教程">视频教程</a>
+                                <?php if (in_array(S('.orgNavbar.'.$_SESSION['organizationId'])['organization_id'], [42, 305, 766,773,1207]) || S('.orgNavbar.'.$_SESSION['organizationId'])['mingzhi_label'] == 1) { ?>
+                                    <a class="transverseSon" onclick="designers_secuity_link(this)" data-attr="{:U('/mingzhi')}" title="明智优选">明智优选</a>
+                                <?php } ?>
+                            </div>
+                        </div> -->
+                        <div class="transverseDiv transverseDiv_2">
+                            <div class="transverseSonOne"><a class="transverseDiv_active_highlight" href="javascript:void(0)" onclick="designers_secuity_link(this)" data-attr="{:U('/list')}" title="精品教程">精品教程</a></div>
+                        </div>
+
+                        <div class="transverseDiv transverseDiv_13"><a class="transverseDiv_active_highlight" href="{:U('/learning_path')}" title="学习路径">学习路径</a></div>
+
+
+                        <div class="transverseDiv transverseDiv_3"><a class="transverseDiv_active_highlight" href="{:U('/source')}" title="素材资源">素材资源</a></div>
+
+                        <div class="transverseDiv transverseDiv_4">
+                            <div class="transverseSonOne"><a class="transverseDiv_active_highlight" href="javascript:void(0)" title="美育教育">美育教育</a></div>
+                            <div class="forAlink">
+                                <a class="transverseSon" onclick="designers_secuity_link(this,'','美育学堂')" data-attr="{:U('/aesthetic_master')}" title="美育学堂">美育学堂</a>
+                                <a class="transverseSon" onclick="designers_secuity_link(this,'','艺术鉴赏')" data-attr="{:U('/aesthetic')}" title="艺术鉴赏">艺术鉴赏</a>
+                            </div>
+                        </div>
+
+                        <div class="transverseDiv transverseDiv_14"><a class="transverseDiv_active_highlight" href="{:U('/artvrpro')}" title="数字展馆">数字展馆</a></div>
+
+                        <div class="transverseDiv transverseDiv_15">
+                            <div class="transverseSonOne"><a class="transverseDiv_active_highlight" href="javascript:void(0)" title="大家访谈">大家访谈</a></div>
+                            <div class="forAlink">
+                                <a class="transverseSon" href="{:U('/forum')}" title="名师讲坛">名师讲坛</a>
+                                <a class="transverseSon" href="{:U('/designTalk')}" title="设计·大家谈">设计·大家谈</a>
+                            </div>
+                        </div>
+
+                        <div class="transverseDiv transverseDiv_6"><a class="transverseDiv_active_highlight" href="{:U('/news')}" title="行业资讯">行业资讯</a></div>
+
+                        <div class="transverseDiv transverseDiv_7">
+                            <div class="transverseSonOne"><a class="transverseDiv_active_highlight" href="javascript:void(0)" title="创客中心">创客中心</a></div>
+                            <div class="forAlink">
+                                <a class="transverseSon" href="{:U('/idear')}" title="设计师作品库">设计师作品库</a>
+                                <!-- <a class="transverseSon" onclick="designers_secuity_link(this)" data-attr="{:U('/art/college')}" title="高校毕业作品库">高校毕业作品库</a> -->
+                            </div>
+                        </div>
+
+                        <div class="transverseDiv transverseDiv_8">
+                            <div class="transverseSonOne"><a class="transverseDiv_active_highlight" href="javascript:void(0)" title="赛事活动">赛事活动</a></div>
+                            <div class="forAlink">
+                                <a class="transverseSon" href="{:U('/contest_list')}" title="赛事活动" target="_blank">赛事活动</a>
+                                <a class="transverseSon" href="{:U('/contest/create_apply')}" title="比赛创建入口" target="_blank">比赛创建入口</a>
+                            </div>
+                        </div>
+
+                        <div class="transverseDivIcon transverseDiv_9" style="display:none;">
+                            <a class="transverseDiv_active_highlight" onclick="designers_secuity_link(this)" data-attr="/master.html?master=1" title="大师栏目"></a>
+                        </div>
+
+                        <div class="transverseDiv transverseDiv_12">
+                            <a class="transverseDiv_active_highlight" href="{:U('/syyf')}" title="阅途展览申请"></a>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div id="shared_search">
+                    <span class="shared_search_span1"></span>
+                    <input type="text" class="shared_search_input" placeholder="请输入搜索关键字">
+                    <span class="shared_search_span2" title="关闭搜索">x</span>
+                    <div class="shared_search_content">
+                        <div class="shared_search_contentList1">
+                            <div class="shared_search_contentList1_new">
+                                <span>最近搜索</span>
+                            </div>
+                            <div class="shared_search_contentList1_hot">
+                                <span>推荐搜索</span>
+                            </div>
+                        </div>
+                        <div class="shared_search_contentList2">
+                            <button>查看全部搜索结果</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sharedHead_login_modal">
+                    <div id="designerSearchLink">
+                        <div class="sharedHead_theme_search" id="search_form" title="点击搜索资源"><div id="search"></div></div>
+                    </div>
+
+                    <!-- logined -->
+                    <div id="header_right_right_already" class="header_right_right_already" style="display:none;">
+
+                        <div id="user_head1" class="user_head">
+
+                            <div id="user_headimg1" class="user_headimg">
+                                <div id="user_img" class="user_img" style="background:url(Public/home/img/man11.png) no-repeat center; background-size: 100% 100%;"></div>
+                            </div>
+
+
+                            <div id="person1" class="person">
+                                <div id="person_msg1" class="person_msg">
+
+                                    <ul>
+                                        <li class="person_item1 person_item2">
+
+                                            <span id="user_name1" class="user_name" title="用户名">
+                                            </span>
+
+                                        </li>
+                                        <li class="person_item1">
+                                            <a href="{:U('/personal/index')}" title="点击进入资料与账号">
+                                                个人资料
+                                            </a>
+                                        </li>
+
+                                        <li class="person_item1">
+                                            <a href="{:U('/personal/index')}?tab=2" title="点击进入我的创客">
+                                                创客作品
+                                            </a>
+                                        </li>
+
+                                        <li class="person_item1">
+
+                                            <a href="{:U('/personal/index')}?tab=5" title="点击进入粉丝/关注">
+                                                粉丝/关注
+                                            </a>
+                                        </li>
+                                        <li class="person_item1">
+
+                                            <a href="{:U('/personal/index')}?tab=4" title="点击进入个人学习记录">
+                                                学习记录
+                                            </a>
+                                        </li>
+                                        <li class="person_item1">
+
+                                            <a href="{:U('/personal/index')}?tab=3" title="点击进入我的收藏">
+                                                我的收藏
+                                            </a>
+                                        </li>
+
+                                        <!-- <?php if ($_SESSION['organizationId'] == 1) { ?>
+                                        <li class="person_item1">
+                                            <a href="{:U('/product')}" title="点击进入产品日志">
+                                                产品日志
+                                            </a>
+                                        </li>
+                                        <?php } ?> -->
+
+                                        <li class="person_item3 person_item1" onclick="met_function_click_load(4)">
+                                            <span class="loginBack" id="loginBackButton" title="点击退出">退出</span>
+                                        </li>
+
+                                    </ul>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <div id="user_head_homeworkTips" class="user_head_homeworkTips">
+
+                            <div class="user_head_homeworkTips_parts1">
+                                <div id="user_head_homeworkTips_parts1_num" class="user_head_homeworkTips_parts1_num"></div>
+                            </div>
+
+                            <div class="user_head_homeworkTips_parts2">
+                                <div id="user_head_homeworkTips_news" class="user_head_homeworkTips_news"></div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                    <!-- unlogin -->
+                    <div id="header_right_right" class="header_right_right" style="display:none;">
+
+                        <div id="userL" class="userL">
+                            <span class="login cursor" onclick="met_function_click_load(1)">登录</span>
+                            <span> | </span>
+                            <span class="register cursor" onclick="met_function_click_load(2)">注册</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- tips area top-->
+    <div class="met_tips_show_area_top mask_hidden"></div>
+
+    <!-- tips area -->
+    <div class="met_tips_show_area mask_hidden"></div>
+
+    <!--big tips area -->
+    <div class="met_pop_layer_account_permissions mask_hidden"></div>
+    <div class="met_pop_layer_account_permissions_mask mask_hidden"></div>
+
+    <!-- 新弹窗 -->
+    <div class="new_pop_layer"></div>
+    <!--login -->
+    <div class="met_login_contain"></div>
+
+    <!-- register -->
+    <div class="met_register_contain"></div>
+
+    <!-- forget -->
+    <div class="met_forget_contain"></div>
+
+    <!-- replace page -->
+    <div class="sharedHeadMainContent">
+        <block name="replace1"></block>
+        <block name="replace3"></block>
+    </div>
+
+    <div class="footer">
+        <div class="center" style="transform: none;">
+            <div class="footLeftTopTxtBottom">
+                <div class="footCompany">
+                    Copyright&nbsp; © 2012-<?php echo date("Y") ?>  All Rights Reserved
+                    <a href="https://beian.miit.gov.cn" class="marginLeft">粤ICP备17019012号</a>
+                    <p class="marginLeftF">
+                        <span>广东阅途文化传播有限公司  版权所有</span>
+                    </p>
+                    <!-- <p>
+                        <span>中国大陆地区总运营商：<a href="http://www.yuetustar.com/" target="_blank">广东粤图之星科技有限公司</a></span>
+                    </p> -->
+                    <div>
+                        <span>全国客服热线：400-881-6535</span>
+                        <span><a href="/copyright" target="_blank">版权声明</a></span>
+                        <span><a href="/preRecruitment" target="_blank">讲师招募</a></span>
+                        <div class="footer_cnzz">
+                            <span id="cnzz_stat_icon_1261789322"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- extend page -->
+    <block name="footer"></block>
+
+    <script type="text/javascript">
+
+        var modal_quit_url = '';
+
+        //http or https
+        var tmpTag = 'https:' == document.location.protocol ? false : true;
+
+        //absoulute path
+        if (tmpTag) {
+            var host = 'http://' + window.location.host;
+        } else {
+            var host = 'https://' + window.location.host;
+        };
+
+        var publicPath = "__PUBLIC__/";
+        var relativePath = publicPath.indexOf("http") < 0 ? "" : publicPath.slice(0, publicPath.length - 7);
+
+        var usernameOn, userIdOn, autoPasswordOn;
+
+        //is login
+        function isLogin() {
+            usernameOn = $.cookie('userName');dataUserId = userIdOn = $.cookie('userId');autoPasswordOn = $.cookie('autoPassword');
+            return userIdOn;
+        }
+
+        //query url arguments
+        function GetQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");var r = window.location.search.substr(1).match(reg);if (r != null) return unescape(r[2]); return null;
+        }
+
+        function GetQueryString2(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); var r = (window.atob(window.location.search.substr(1))).match(reg); if (r != null) return unescape(r[2]); return null;
+        }
+
+        //loading
+        var showTheloadingSetTimeout = '', hideTheloadingSetTimeout;
+
+        function showLoading() {
+            $('.hiddenEverything,.loadingGif').show();
+        }
+
+        //loading cancel
+        function hideLoading() {
+            clearTimeout(showTheloadingSetTimeout);$('.hiddenEverything,.loadingGif').hide();
+        }
+
+        var isOnpage = 0;
+
+        //permission
+        function met_check_org_permission(back, module ) {
+            if (module === undefined) module = ''
+
+            if ($('.met_pop_layer_account_permissions_contain').length>0){
+                return 0;
+            }
+            var returnStatus = 0;
+            $.ajax({
+                url: host + '/home/Index/checkOrg.html?num=' + Math.random()+'&module='+module,
+                type: 'get',
+                async: false,
+                dataType: 'json',
+                success: function (data) {
+
+                    if (data.status != 1) {
+
+                        $.getScript(host + '/Public/home/js/baseElements/met_pop_layer.js?v=2', function () {
+                            if (isLogin()) {
+                                //提示
+                                met_pop_layer.account_permissions(data.msg, "e", [{ "type": 7, "url": "met_pop_layer.designer_feedback_message()", "text": "有需求,去反馈" },{ "type": 1, "url": "met_pop_layer.account_permissions_close(this)" }]);
+                            } else {
+                                //未登录提示
+                                if(back){
+                                    met_pop_layer.account_permissions(data.msg, "e", [{ "type": 7, "url": "met_pop_layer.designer_feedback_message()", "text": "有需求,去反馈" },{ "type": 4, "url": "met_function_click_load(1)", "text": "有账号,去登录" }, { "type": 4, "url": "met_function_click_load(2)", "text": "注册" }, { "type": 3, "url": "https://www.51sjsj.com/" }]);
+                                }else{
+                                    met_pop_layer.account_permissions(data.msg, "e", [{ "type": 7, "url": "met_pop_layer.designer_feedback_message()", "text": "有需求,去反馈" },{ "type": 4, "url": "met_function_click_load(1)", "text": "有账号,去登录" }, { "type": 4, "url": "met_function_click_load(2)", "text": "注册" }, { "type": 1, "url": "met_pop_layer.account_permissions_close(this)" }]);
+                                }
+                            }
+                            // $(document).scrollTop(0);
+                        })
+                        returnStatus = 0;
+
+                    } else {
+
+                        returnStatus = 1;
+
+                    }
+                },
+                error: function (data) {
+                    returnStatus = 0;
+
+                }
+
+            })
+
+            return returnStatus;
+
+
+        }
+
+        //secuity
+        function designers_secuity_link(o, type,module) {
+            if (module === undefined) module = ''
+            if (met_check_org_permission('',module) == 0) {
+                return;
+            } else {
+                if (type == 'open') {
+                    window.open($(o).attr("data-attr"));
+                } else {
+                    window.location.href = $(o).attr("data-attr");
+                }
+            }
+        }
+
+        // 获取初始搜索数据 推荐搜索和历史搜索
+        function getHotSearch(){
+            $.ajax({
+                type: "get",
+                url: host + "/home/Index/checkOrg.html",
+                data: { "num":Math.random(),"isLogin":isLogin() },
+                dataType: "json",
+                success: function (response) {
+                    $('.shared_search_contentList1_new p,.shared_search_contentList1_hot p').remove();
+                    if(isLogin()){
+                        for(var i=0;i<response.newList.length;i++){
+                            $('.shared_search_contentList1_new').append('<p>'+response.newList[i].name+'</p>')
+                        }
+                    }
+                    for(var i=0;i<response.hotList.length;i++){
+                        $('.shared_search_contentList1_hot').append('<p>'+response.hotList[i].name+'</p>')
+                    }
+                }
+            })
+        }
+
+        // 根据输入的值获取搜索数据
+        function getInputSearch(){
+            $.ajax({
+                type: "get",
+                url: host + "/home/Index/checkOrg.html",
+                data: { "kw":$('.shared_search_input').val() },
+                dataType: "json",
+                success: function (response) {
+                    $('.shared_search_contentList2 p,.shared_search_contentList2 span').remove();
+                    if(response.inputList.length>0){
+                        for(var i=0;i<response.inputList.length;i++){
+                            $('.shared_search_contentList2').append('<p>'+response.inputList[i].name+'</p>')
+                        }
+                    }else{
+                        $('.shared_search_contentList2').append('<span>暂无数据...</span>')
+                    }
+
+                }
+            })
+        }
+
+        //auto login
+        $(function () {
+            // 点击关闭搜索
+            $('html,body').click(function(){
+                $('#shared_search').fadeOut();
+                $('#sharedHead_theme').fadeIn();
+                $('#designerSearchLink').fadeIn();
+            })
+
+            //点击显示搜索
+            $('#designerSearchLink').bind('click', function (event) {
+                window.open(relativePath + '/search.html?kw=&=' + Math.random())
+            })
+
+            // 搜索跳转
+            $('#shared_search .shared_search_content p').click(function(){
+                window.open(relativePath + '/search.html?kw='+$(this).html()+'&=' + Math.random())
+            })
+            // 点击查看全部搜索
+            $('#shared_search .shared_search_content .shared_search_contentList2 button').click(function(){
+                window.open(relativePath + '/search.html?kw='+$('.shared_search_input').val()+'&=' + Math.random())
+            })
+            //模糊搜索请求接口
+            $('.shared_search_input').click(function(e){e.stopPropagation();})
+            $('.shared_search_input').keyup(function(){
+                if($(this).val()!=''){
+                    $('.shared_search_contentList2').show();
+                    $('.shared_search_contentList1').hide();
+                    getInputSearch();
+
+                }else{
+                    $('.shared_search_contentList1').show();
+                    $('.shared_search_contentList2').hide();
+                    getHotSearch();
+                }
+            })
+
+
+            if (typeof (designers_current_column) != 'undefined') {
+                $(".transverseDiv_" + designers_current_column).addClass("transverseDiv_active")
+            }
+            readyLoginJungle();
+
+        });
+
+    </script>
+
+    <block name="footerMore">  </block>
+
+
+    <script src="__PUBLIC__/home/js/seaJs/sea.js"></script>
+    <script src="__PUBLIC__/home/js/seaJs/seajs-config.js"></script>
+    <script src="__PUBLIC__/home/js/seaJs/seajs-css.js"></script>
+
+
+</body>
+
+</html>
+

@@ -1,0 +1,21 @@
+/* IE11的单独补丁 */
+
+/* 首页行业资讯多行省略 */
+.elip4 {height:80px; line-height:20px;}
+
+/* 右侧固定栏 */
+.fixedNav_list1:hover{overflow:visible!important;}
+.fixedNav_list2:hover{overflow:visible!important;}
+.fixedNav_list3:hover{overflow:visible!important;}
+
+/* 个人中心 兴趣选择弹窗 */
+.pushPopUp_dialog_centerInfo .selected {
+    background-color: rgba(255, 210, 0, 0.5);
+}
+
+
+/* 大家谈 */
+.toolBox {
+    margin-left: -20px!important;
+    width: 890px!important;
+}
