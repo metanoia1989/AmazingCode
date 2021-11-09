@@ -289,3 +289,18 @@ function extract_xuexin_info($html)
 
     return $data;
 }
+
+
+/**
+ * Convert a key => value array to a 'key: value' array for headers
+ *
+ * @param array $array Dictionary of header values
+ * @return array List of headers
+ */
+function flatten($array) {
+    $return = array();
+    foreach ($array as $key => $value) {
+        $return[] = sprintf('%s: %s', $key, $value);
+    }
+    return $return;
+}
