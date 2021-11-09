@@ -178,6 +178,32 @@ function isMobile()
     return false;
 }
 
+/**
+ * 是否为移动端
+ */
+function is_mobile()
+{
+    if (isset($_SERVER['HTTP_X_WAP_PROFILE'])) {
+        return true;
+    }
+    if (isset($_SERVER['HTTP_VIA'])) {
+        return stristr($_SERVER['HTTP_VIA'], "wap") ? true : false;
+    }
+    if (isset($_SERVER['HTTP_USER_AGENT'])) {
+        $clientkeywords = array('nokia', 'sony', 'ericsson', 'mot', 'samsung', 'htc', 'sgh', 'lg', 'sharp', 'sie-', 'philips', 'panasonic', 'alcatel', 'lenovo', 'iphone', 'ipod', 'blackberry', 'meizu', 'android', 'netfront', 'symbian', 'ucweb', 'windowsce', 'palm', 'operamini', 'operamobi', 'openwave', 'nexusone', 'cldc', 'midp', 'wap', 'mobile');
+        if (preg_match("/(" . implode('|', $clientkeywords) . ")/i", strtolower($_SERVER['HTTP_USER_AGENT']))) {
+            return true;
+        }
+    }
+    if (isset($_SERVER['HTTP_ACCEPT'])) {
+        if ((strpos($_SERVER['HTTP_ACCEPT'], 'vnd.wap.wml') !== false) && (strpos($_SERVER['HTTP_ACCEPT'], 'textml') === false || (strpos($_SERVER['HTTP_ACCEPT'], 'vnd.wap.wml') < strpos($_SERVER['HTTP_ACCEPT'], 'textml')))) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
 
 //字符串转Unicode编码
 function unicode_encode($strLong) {
@@ -303,4 +329,364 @@ function flatten($array) {
         $return[] = sprintf('%s: %s', $key, $value);
     }
     return $return;
+}
+
+/**
+ * User: 意象信息科技 lr
+ * Desc: 下载文件
+ * @param $url 文件url
+ * @param $save_dir 保存目录
+ * @param $file_name 文件名
+ * @return string
+ */
+function download_file($url, $save_dir, $file_name)
+{
+    if (!file_exists($save_dir)) {
+        mkdir($save_dir, 0775, true);
+    }
+    $file_src = $save_dir . $file_name;
+    file_exists($file_src) && unlink($file_src);
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
+    $file = curl_exec($ch);
+    curl_close($ch);
+    $resource = fopen($file_src, 'a');
+    fwrite($resource, $file);
+    fclose($resource);
+    if (filesize($file_src) == 0) {
+        unlink($file_src);
+        return '';
+    }
+    return $file_src;
+}
+
+/**
+ * 线性结构转换成树形结构
+ * @param array $data 线性结构数组
+ * @param string $sub_key_name 自动生成子数组名
+ * @param string $id_name 数组id名
+ * @param string $parent_id_name 数组祖先id名
+ * @param int $parent_id 此值请勿给参数
+ * @return array
+ */
+function linear_to_tree($data, $sub_key_name = 'sub', $id_name = 'id', $parent_id_name = 'pid', $parent_id = 0)
+{
+  $tree = [];
+  foreach ($data as $row) {
+    if ($row[$parent_id_name] == $parent_id) {
+      $temp = $row;
+      $temp[$sub_key_name] = linear_to_tree($data, $sub_key_name, $id_name, $parent_id_name, $row[$id_name]);
+      $tree[] = $temp;
+    }
+  }
+  return $tree;
+}
+
+/**
+ * 生成会员码
+ * @return 会员码
+ */
+function create_user_sn($prefix = '', $length = 8)
+{
+    $rand_str = '';
+    for ($i = 0; $i < $length; $i++) {
+        $rand_str .= mt_rand(0, 9);
+    }
+    $sn = $prefix . $rand_str;
+    $user = User::where(['sn' => $sn])->findOrEmpty();
+    if (!$user->isEmpty()) {
+        return create_user_sn($prefix, $length);
+    }
+    return $sn;
+}
+
+//生成用户邀请码
+function generate_invite_code()
+{
+    $letter_all = range('A', 'Z');
+    shuffle($letter_all);
+    //排除I、O字母
+    $letter_array = array_diff($letter_all, ['I', 'O', 'D']);
+    //排除1、0
+    $num_array = range('2', '9');
+    shuffle($num_array);
+
+    $pattern = array_merge($num_array, $letter_array, $num_array);
+    shuffle($pattern);
+    $pattern = array_values($pattern);
+
+    $code = '';
+    for ($i = 0; $i < 6; $i++) {
+        $code .= $pattern[mt_rand(0, count($pattern) - 1)];
+    }
+
+    $code = strtoupper($code);
+    $check = User::where('distribution_code', $code)->findOrEmpty();
+    if (!$check->isEmpty()) {
+        return generate_invite_code();
+    }
+    return $code;
+}
+
+/**
+ * User: 意象信息科技 lr
+ * Desc：生成密码密文
+ * @param $plaintext string 明文
+ * @param $salt string 密码盐
+ * @return string
+ */
+function create_password($plaintext, $salt)
+{
+    $salt = md5('y' . $salt . 'x');
+    $salt .= '2021';
+    return md5($plaintext . $salt);
+}
+
+/**
+ * User: 意象信息科技 mjf
+ * Desc: 用时间生成订单编号
+ * @param $table
+ * @param $field
+ * @param string $prefix
+ * @param int $rand_suffix_length
+ * @param array $pool
+ * @return string
+ * @throws \think\db\exception\DataNotFoundException
+ * @throws \think\db\exception\DbException
+ * @throws \think\db\exception\ModelNotFoundException
+ */
+function createSn($table, $field, $prefix = '', $rand_suffix_length = 4, $pool = [])
+{
+    $suffix = '';
+    for ($i = 0; $i < $rand_suffix_length; $i++) {
+        if (empty($pool)) {
+            $suffix .= rand(0, 9);
+        } else {
+            $suffix .= $pool[array_rand($pool)];
+        }
+    }
+    $sn = $prefix . date('YmdHis') . $suffix;
+    if (Db::name($table)->where($field, $sn)->find()) {
+        return createSn($table, $field, $prefix, $rand_suffix_length, $pool);
+    }
+    return $sn;
+}
+
+/**
+ * note 生成验证码
+ * @param int $length 验证码长度
+ * @return string
+ */
+function create_sms_code($length = 4)
+{
+    $code = '';
+    for ($i = 0; $i < $length; $i++) {
+        $code .= rand(0, 9);
+    }
+    return $code;
+}
+
+/**
+ * 生成商品编码
+ * 8位
+ */
+function create_goods_code($shop_id)
+{
+    $code =  mt_rand(10000000, 99999999);
+    $goods = Goods::where([
+        'code' => $code,
+        'shop_id' => $shop_id,
+        'del' => 0
+    ])->findOrEmpty();
+    if($goods->isEmpty()) {
+        return $code;
+    }
+    create_goods_code();
+}
+
+/**
+ * 是否在cli模式
+ */
+if (!function_exists('is_cli')) {
+    function is_cli()
+    {
+        return preg_match("/cli/i", php_sapi_name()) ? true : false;
+    }
+}
+
+/**
+ * Notes:判断文件是否存在（远程和本地文件）
+ * @param $file string 完整的文件链接
+ * @return bool
+ */
+function check_file_exists($file)
+{
+    //远程文件
+    if ('http' == strtolower(substr($file, 0, 4))) {
+
+        $header = get_headers($file, true);
+
+        return isset($header[0]) && (strpos($header[0], '200') || strpos($header[0], '304'));
+
+    } else {
+
+        return file_exists($file);
+    }
+}
+
+/**
+ * 将图片切成圆角
+ */
+function rounded_corner($src_img)
+{
+    $w = imagesx($src_img);//微信头像宽度 正方形的
+    $h = imagesy($src_img);//微信头像宽度 正方形的
+    $w = min($w, $h);
+    $h = $w;
+    $img = imagecreatetruecolor($w, $h);
+    //这一句一定要有
+    imagesavealpha($img, true);
+    //拾取一个完全透明的颜色,最后一个参数127为全透明
+    $bg = imagecolorallocatealpha($img, 255, 255, 255, 127);
+    imagefill($img, 0, 0, $bg);
+    $r = $w / 2; //圆半径
+//    $y_x = $r; //圆心X坐标
+//    $y_y = $r; //圆心Y坐标
+    for ($x = 0; $x < $w; $x++) {
+        for ($y = 0; $y < $h; $y++) {
+            $rgbColor = imagecolorat($src_img, $x, $y);
+            if (((($x - $r) * ($x - $r) + ($y - $r) * ($y - $r)) < ($r * $r))) {
+                imagesetpixel($img, $x, $y, $rgbColor);
+            }
+        }
+    }
+    unset($src_img);
+    return $img;
+}
+
+/**
+ * Notes:去掉名称中的表情
+ * @param $str
+ * @return string|string[]|null
+ * @author: cjhao 2021/3/29 15:56
+ */
+function filterEmoji($str)
+{
+    $str = preg_replace_callback(
+        '/./u',
+        function (array $match) {
+            return strlen($match[0]) >= 4 ? '' : $match[0];
+        },
+        $str);
+    return $str;
+}
+
+/**
+ * Notes:生成一个范围内的随机浮点数
+ * @param int $min 最小值
+ * @param int $max 最大值
+ * @return float|int 返回随机数
+ */
+function random_float($min = 0, $max = 1)
+{
+    return $min + mt_rand() / mt_getrandmax() * ($max - $min);
+}
+
+/**
+ * Notes: 获取文件扩展名
+ * @param $file
+ * @author 段誉(2021/7/7 18:03)
+ * @return mixed
+ */
+if (!function_exists('get_extension')) {
+    function get_extension($file)
+    {
+        return pathinfo($file, PATHINFO_EXTENSION);
+    }
+}
+
+/**
+ * Notes: 删除目标目录
+ * @param $path
+ * @param $delDir
+ * @author 段誉(2021/7/7 18:19)
+ * @return bool
+ */
+if (!function_exists('del_target_dir')) {
+    function del_target_dir($path, $delDir)
+    {
+        $handle = opendir($path);
+        if ($handle) {
+            while (false !== ($item = readdir($handle))) {
+                if ($item != "." && $item != "..") {
+                    if (is_dir("$path/$item")) {
+                        del_target_dir("$path/$item", $delDir);
+                    } else {
+                        unlink("$path/$item");
+                    }
+                }
+            }
+            closedir($handle);
+            if ($delDir) {
+                return rmdir($path);
+            }
+        } else {
+            if (file_exists($path)) {
+                return unlink($path);
+            }
+            return false;
+        }
+    }
+}
+
+
+/**
+ * Notes: 获取本地版本数据
+ * @return mixed
+ * @author 段誉(2021/7/7 18:18)
+ */
+if (!function_exists('local_version')) {
+    function local_version()
+    {
+        if(!file_exists('./upgrade/')) {
+            // 若文件夹不存在，先创建文件夹
+            mkdir('./upgrade/', 0777, true);
+        }
+        if(!file_exists('./upgrade/version.json')) {
+            // 获取本地版本号
+            $version = config('project.version');
+            $data = ['version' => $version];
+            $src = './upgrade/version.json';
+            // 新建文件
+            file_put_contents($src, json_encode($data, JSON_UNESCAPED_UNICODE));
+        }
+
+        $json_string = file_get_contents('./upgrade/version.json');
+        // 用参数true把JSON字符串强制转成PHP数组
+        $data = json_decode($json_string, true);
+        return $data;
+    }
+}
+
+/**
+ * Notes: 获取ip
+ * @author 段誉(2021/7/9 10:19)
+ * @return array|false|mixed|string
+ */
+if (!function_exists('get_client_ip')) {
+    function get_client_ip()
+    {
+        if ($_SERVER['REMOTE_ADDR']) {
+            $cip = $_SERVER['REMOTE_ADDR'];
+        } elseif (getenv("REMOTE_ADDR")) {
+            $cip = getenv("REMOTE_ADDR");
+        } elseif (getenv("HTTP_CLIENT_IP")) {
+            $cip = getenv("HTTP_CLIENT_IP");
+        } else {
+            $cip = "unknown";
+        }
+        return $cip;
+    }
 }
