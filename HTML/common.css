@@ -1,0 +1,44 @@
+*{
+    margin:0px;
+    padding:0px;
+}
+body * {
+  box-sizing: border-box;
+  flex-shrink: 0;
+
+}
+body {
+  font-family: PingFangSC-Regular, Roboto, Helvetica Neue, Helvetica, Tahoma,
+    Arial, PingFang SC-Light, Microsoft YaHei;
+}
+button {
+  margin: 0;
+  padding: 0;
+  border: 1px solid transparent;
+  outline: none;
+  background-color: transparent;
+}
+
+button:active {
+  opacity: 0.6;
+}
+
+/* 这个弹性盒子帮助很大，提高效率 */
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+
+.link:hover {
+  text-decoration: none;
+  filter: brightness(1.05); 
+}
+
+.c-mt-1 {
+  margin-top: -1px;
+}
