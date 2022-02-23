@@ -690,3 +690,32 @@ if (!function_exists('get_client_ip')) {
         return $cip;
     }
 }
+
+/**
+ * 远程图片转换为base64编码
+ * 
+ * @from https://stackoverflow.com/questions/4343715/php-how-to-convert-an-image-from-url-to-base64
+ * @param string $img_url
+ * @return bool|string
+ */
+function remoteImgToBase64($img_url)
+{
+    $image = file_get_contents($img_url);
+    if ($image !== false){
+        return 'data:image/jpg;base64,'.base64_encode($image);
+
+    }
+    return false;
+}
+
+
+/**
+ * 等同于JavaScript的 encodeURIComponent
+ *
+ * @param string $str
+ * @return string
+ */
+function encodeURIComponent($str) {
+    $revert = array('%21'=>'!', '%2A'=>'*', '%27'=>"'", '%28'=>'(', '%29'=>')');
+    return strtr(rawurlencode($str), $revert);
+}
