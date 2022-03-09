@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript" src="./public/js/typeahead.bundle.min.js"></script>
+    <script>
+        $(function () {
+            // 搜索建议处理
+            var topSearch = new Bloodhound({
+                    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('keyword'),
+                    queryTokenizer: Bloodhound.tokenizers.whitespace,
+                    remote: {
+                        url: '{$pe["host_root"]}/index.php?mod=product&act=list&ajax=true&keyword=%QUERY',
+                        wildcard: '%QUERY'
+                    }
+            });
+
+
+            $('#search-container .typeahead').typeahead({
+                hint: true,
+                highlight: true,
+                minLength: 1,
+                autoselect: false
+            }, {
+                name: 'topSearch',
+                displayKey: 'keyword',
+                source: topSearch,
+                templates: {
+                    "notFound": context => '',
+                    "suggestion": context => `
+                        <a href="${context.url}">${context.keyword} </a>	
+                    `
+                }	
+            });
+
+        });
+    </script> 
+</body>
+</html>
