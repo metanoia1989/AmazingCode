@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>js飘窗</title>
+		<style type="text/css">
+			*{margin: 0;padding: 0;}
+			html,body{width: 100%;height: 100%;}
+
+            /* 网页飘窗 */
+            .piaochuang {
+                border: 1px solid #000000;
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                z-index: 1000;
+                font-size: 18px;
+                width: 400px;
+                height: 140px;
+                padding: 20px;
+                background: #ffffff;
+            }
+            .piaochuang .queding {
+                float: right;
+                background: #55b155;
+                width: 70px;
+                height: 30px;
+                color: #fff;
+                border-radius: 5px;
+            }
+            .piaochuang .go-study{
+                float: right;
+                background: #0077f6;
+                width: 70px;
+                height: 30px;
+                color: #fff;
+                border-radius: 5px;
+                margin-right: 10px;
+            }
+            .piaochuang hr {
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
+		</style>
+	</head>
+	<body>
+        <div id="movediv" class="piaochuang">
+        温馨提示：2021年度广东省执业药师继续教育公需科目学习将于<span style="color: red;">2022年4月30日</span>截止，到期将关闭学习通道，不再提供补学服务，请各位学员按时完成公需科目学习。
+        <hr>
+        <button class="queding">确定</button>
+        <button class="go-study">去学习</button>
+        </div> 
+
+		
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> 
+		<script type="text/javascript">
+            $(function () {
+                // 公需课飘窗
+                var div = document.getElementById("movediv");//获取对象
+                var myt = 0,myl = 0;										//定义初始top/left值
+                var step = 2;															//要移动多少像素
+                var w = div.offsetWidth, h = div.offsetHeight;//获取元素的宽高
+                var bw = document.body.clientWidth, bh = document.body.clientHeight;//获取可见窗口的宽高
+                var directionX = "right", directionY = "down";//定义移动方向
+                
+                function go(){
+                //判断移动方向
+                if(directionX == "right"){ //判断向右移动时到最右侧
+                    if((myl + w + step) > bw ){
+                    directionX = "left";
+                    }
+                }else{
+                    if((myl-step)<0){
+                    directionX = "right";
+                    }
+                }
+                if(directionY == "down"){ //判断向下移动时到最下侧
+                    if( (myt + h + step) > bh ) {
+                    directionY = "up";
+                    }
+                }else{
+                    if((myt-step)<0){
+                    directionY = "down";
+                    }
+                }
+                //移动
+                if(directionX == "right"){
+                    myl += step;
+                }else{
+                    myl -= step;
+                }
+                if(directionY == "down"){
+                    myt += step;
+                }else{
+                    myt -= step;
+                }
+                div.style.left = myl + "px";
+                div.style.top = myt + "px";
+                }
+                var myVar = setInterval(go,60);//定时器
+                
+                div.onmouseover= function(){ //鼠标移动到元素上停止函数
+                clearInterval(myVar);
+                }
+                div.onmouseout = function(){ //鼠标离开元素继续
+                myVar = setInterval(go,40);
+                }
+                $('.queding').on('click', function () {
+                clearInterval(myVar);
+                $('#movediv').hide();
+                });
+                $('.go-study').on('click', function () {
+                location.href = "https://zyys.gdfda.org/"
+                });
+            });
+		</script>
+	</body>
+</html>
