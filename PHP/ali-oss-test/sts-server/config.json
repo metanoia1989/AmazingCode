@@ -1,0 +1,9 @@
+{
+"AccessKeyID" : "xxx",
+"AccessKeySecret" : "xxx",
+"RoleArn" : "xxx",
+"BucketName" : "xxxx",
+"Endpoint" : "oss-cn-guangzhou.aliyuncs.com",
+"TokenExpireTime" : "900",
+"PolicyFile": "policy/bucket_write_policy.txt"
+}

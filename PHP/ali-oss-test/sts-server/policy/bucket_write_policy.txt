@@ -1,0 +1,14 @@
+{
+  "Statement": [
+    {
+      "Action": [
+        "oss:PutObject",
+        "oss:ListParts",
+        "oss:AbortMultipartUpload"
+      ],
+      "Effect": "Allow",
+      "Resource": ["acs:oss:*:*:laoge-chat/*"]
+    }
+  ],
+  "Version": "1"
+}
